@@ -1,4 +1,5 @@
-using System.ComponentModel.DataAnnotations; // Para validações
+using System.ComponentModel.DataAnnotations;
+using EmployeeManagement.Domain.Enums; // Para validações
 
 namespace EmployeeManagement.Application.DTOs
 {
@@ -32,5 +33,8 @@ namespace EmployeeManagement.Application.DTOs
 
         [MaxLength(200, ErrorMessage = "Manager name cannot exceed 200 characters.")]
         public string ManagerName { get; set; }
+
+        [Required(ErrorMessage = "Role is required.")]
+        public Role Role { get; set; }
     }
 }

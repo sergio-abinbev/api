@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using EmployeeManagement.Application.DTOs;
 using EmployeeManagement.Application.Services;
+using EmployeeManagement.Domain.Enums;
 
 namespace EmployeeManagement.Api.Controllers
 {
@@ -25,6 +26,7 @@ namespace EmployeeManagement.Api.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(EmployeeResponseDto), 201)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(403)]
         [ProducesResponseType(500)]
         public async Task<IActionResult> CreateEmployee([FromBody] CreateEmployeeDto createDto)
         {
@@ -36,8 +38,11 @@ namespace EmployeeManagement.Api.Controllers
 
             try
             {
+                // --- Simulação temporária do Role do usuário atual (a ser substituída por um sistema de autenticação real) ---
+                var creatorRole = Role.Leader; // Para testes, vamos assumir que o usuário atual é um Diretor.
+
                 _logger.LogInformation("Attempting to create employee with email: {Email}", createDto.Email);
-                var createdEmployee = await _employeeService.CreateEmployeeAsync(createDto);
+                var createdEmployee = await _employeeService.CreateEmployeeAsync(createDto, creatorRole);
                 _logger.LogInformation("Employee created successfully with ID: {EmployeeId}", createdEmployee.Id);
                 return CreatedAtAction(nameof(GetEmployeeById), new { id = createdEmployee.Id }, createdEmployee);
             }
@@ -45,6 +50,11 @@ namespace EmployeeManagement.Api.Controllers
             {
                 _logger.LogWarning(ex, "Business validation error during employee creation: {Message}", ex.Message);
                 return BadRequest(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogWarning(ex, "Permission denied during employee creation: {Message}", ex.Message);
+                return StatusCode(403, new { message = ex.Message });
             }
             catch (Exception ex)
             {

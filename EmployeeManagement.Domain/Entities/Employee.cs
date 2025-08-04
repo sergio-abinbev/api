@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using EmployeeManagement.Domain.ValueObjects;
+using EmployeeManagement.Domain.Enums;
 
 namespace EmployeeManagement.Domain.Entities
 {
@@ -16,15 +17,18 @@ namespace EmployeeManagement.Domain.Entities
         public string ManagerName { get; private set; }
         private readonly List<PhoneNumber> _phones;
         public IReadOnlyCollection<PhoneNumber> Phones => _phones.AsReadOnly();
+        public Role Role { get; private set; }
 
-        public Employee(
-            string firstName,
-            string lastName,
-            string email,
-            string docNumber,
-            DateTime dateOfBirth,
-            string passwordHash,
-            string managerName = null)
+
+        public Employee
+        (string firstName,
+        string lastName,
+        string email,
+        string docNumber,
+        DateTime dateOfBirth,
+        string passwordHash,
+        Role role,
+        string managerName = null)
         {
             if (string.IsNullOrWhiteSpace(firstName))
                 throw new ArgumentException("First name is required.");
@@ -40,12 +44,14 @@ namespace EmployeeManagement.Domain.Entities
             if (CalculateAge(dateOfBirth) < 18)
                 throw new ArgumentException("Employee must be at least 18 years old.");
 
+            Id = Guid.NewGuid();
             FirstName = firstName;
             LastName = lastName;
             Email = email;
             DocNumber = docNumber;
             DateOfBirth = dateOfBirth;
             PasswordHash = passwordHash;
+            Role = role;
             ManagerName = managerName;
             _phones = [];
         }

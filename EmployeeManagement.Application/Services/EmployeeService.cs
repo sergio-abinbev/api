@@ -1,6 +1,7 @@
 using AutoMapper;
 using EmployeeManagement.Application.DTOs;
 using EmployeeManagement.Domain.Entities;
+using EmployeeManagement.Domain.Enums;
 using EmployeeManagement.Domain.Repositories;
 using EmployeeManagement.Domain.ValueObjects;
 
@@ -21,18 +22,15 @@ namespace EmployeeManagement.Application.Services
 
 
 
-        public async Task<EmployeeResponseDto> CreateEmployeeAsync(CreateEmployeeDto createDto)
+        public async Task<EmployeeResponseDto> CreateEmployeeAsync(CreateEmployeeDto createDto, Role creatorRole)
         {
 
             if (await _employeeRepository.DocNumberExistsAsync(createDto.DocNumber))
-            {
                 throw new ArgumentException($"Employee with document number '{createDto.DocNumber}' already exists.");
-            }
             if (await _employeeRepository.EmailExistsAsync(createDto.Email))
-            {
                 throw new ArgumentException($"Employee with email '{createDto.Email}' already exists.");
-            }
-
+            if (createDto.Role > creatorRole)
+                throw new InvalidOperationException("You cannot create a user with higher permissions than your own.");
 
             var passwordHash = _passwordHasher.HashPassword(createDto.Password);
 
@@ -44,9 +42,9 @@ namespace EmployeeManagement.Application.Services
                 createDto.DocNumber,
                 createDto.DateOfBirth,
                 passwordHash,
+                createDto.Role,
                 createDto.ManagerName
             );
-
 
             foreach (var phoneDto in createDto.Phones)
             {
