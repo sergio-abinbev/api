@@ -13,6 +13,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagement.Infrastr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagement.Application.Tests", "EmployeeManagement.Application.Tests\EmployeeManagement.Application.Tests.csproj", "{0D41D04E-A469-4CFF-AAA3-333ACE276E7E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagement.Auth.Api", "EmployeeManagement.Auth.Api\EmployeeManagement.Auth.Api.csproj", "{B447C791-935B-4E21-A6EA-EBD4344DFF46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagement.Auth.Domain", "EmployeeManagement.Auth.Domain\EmployeeManagement.Auth.Domain.csproj", "{23DDA2B7-FBA4-419A-B769-71E036E3566A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagement.Auth.Infrastructure", "EmployeeManagement.Auth.Infrastructure\EmployeeManagement.Auth.Infrastructure.csproj", "{65F3A138-3AD4-4EDE-B11E-486F8923A229}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +48,17 @@ Global
 		{0D41D04E-A469-4CFF-AAA3-333ACE276E7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D41D04E-A469-4CFF-AAA3-333ACE276E7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D41D04E-A469-4CFF-AAA3-333ACE276E7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B447C791-935B-4E21-A6EA-EBD4344DFF46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B447C791-935B-4E21-A6EA-EBD4344DFF46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B447C791-935B-4E21-A6EA-EBD4344DFF46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B447C791-935B-4E21-A6EA-EBD4344DFF46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23DDA2B7-FBA4-419A-B769-71E036E3566A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23DDA2B7-FBA4-419A-B769-71E036E3566A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23DDA2B7-FBA4-419A-B769-71E036E3566A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23DDA2B7-FBA4-419A-B769-71E036E3566A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65F3A138-3AD4-4EDE-B11E-486F8923A229}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65F3A138-3AD4-4EDE-B11E-486F8923A229}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65F3A138-3AD4-4EDE-B11E-486F8923A229}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65F3A138-3AD4-4EDE-B11E-486F8923A229}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
