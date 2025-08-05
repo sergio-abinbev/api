@@ -124,7 +124,7 @@ public class EmployeeServiceTests
             LastName = "Dev",
             Email = "junior.dev@test.com",
             DocNumber = "99988877766",
-            DateOfBirth = DateTime.Now.AddYears(-17), // Idade de 17 anos
+            DateOfBirth = DateTime.Now.AddYears(-17),
             Password = "password123",
             Role = Role.Employee
         };
@@ -133,6 +133,8 @@ public class EmployeeServiceTests
                                .ReturnsAsync(false);
         _mockEmployeeRepository.Setup(r => r.EmailExistsAsync(It.IsAny<string>()))
                                .ReturnsAsync(false);
+        _mockPasswordHasher.Setup(h => h.HashPassword(It.IsAny<string>()))
+            .Returns("mocked_hashed_password");
 
         var exception = await Assert.ThrowsAsync<ArgumentException>(
             () => _employeeService.CreateEmployeeAsync(createDto, creatorRole));
@@ -155,7 +157,6 @@ public class EmployeeServiceTests
 
         _mockEmployeeRepository.Setup(r => r.DocNumberExistsAsync(It.IsAny<string>())).ReturnsAsync(false);
         _mockEmployeeRepository.Setup(r => r.EmailExistsAsync(It.IsAny<string>())).ReturnsAsync(false);
-
 
         var exception = await Assert.ThrowsAsync<InvalidOperationException>(
             () => _employeeService.CreateEmployeeAsync(createDto, creatorRole));
