@@ -22,7 +22,7 @@ jobs:
         run: dotnet restore ./EmployeeManagement.sln
 
       - name: Build the solution
-        run: dotnet build 
+        run: dotnet build --configuration Release
 
       - name: Run unit tests with report
         run: dotnet test ./EmployeeManagement.Application.Tests/EmployeeManagement.Application.Tests.csproj --configuration Release --no-build --logger "trx;LogFileName=TestResults.trx"
